@@ -4,9 +4,9 @@ When the web started, most websites consisted of a series of pages that users co
 
 In a single-page app, all of these features become problematic. Remember, in a single-page app, everything is happening on the same page. JavaScript is loading information and changing the UI. Features like browser history, bookmarks, and forward and back buttons will not work without a routing solution. Routing is the process of defining endpoints for your client’s requests. These endpoints work in conjunction with the browser’s location and history objects. They are used to identify requested content so that JavaScript can load and render the appropriate user interface.
 
-Unlike Angular, Ember, or Backbone, _React doesn’t come with a standard router_. Recognizing the importance of a routing solution, engineers Michael Jackson and Ryan Florence created one named simply _React Router_. 
+Unlike Angular, Ember, or Backbone, _React doesn’t come with a standard router_. Recognizing the importance of a routing solution, engineers Michael Jackson and Ryan Florence created one named simply _React Router_.
 
-In this chapter, we will introduce the React Router and review how to leverage the HashRouter component to handle routing on the client. 
+In this chapter, we will introduce the React Router and review how to leverage the HashRouter component to handle routing on the client.
 
 ## Incorporating the Router
 
@@ -16,7 +16,7 @@ The sitemap for this website consists of a home page, a page for each section, a
 
 The router will allow us to set up routes for each section of the website. Each route is an endpoint that can be entered into the browser’s location bar. When a route is requested, we can render the appropriate content.
 
-### HASHROUTER
+### HashRouter
 
 `react-router-dom` provides a couple of options for managing the navigation history in single-page applications. The `HashRouter` was designed for the client. Traditionally, hashes in the location bar were used to define anchor links. When the # is used in the location bar, the browser does not make a server request. **When using the `HashRouter`, the # is always required before all routes.**
 
@@ -24,8 +24,8 @@ The router will allow us to set up routes for each section of the website. Each 
 
 Let’s install `react-router-dom`, the package that we need to incorporate the router into our browser-based application:
 
-```
-npm install react-router-dom --save 
+```bash
+npm install react-router-dom --save
 ```
 
 We’ll also need a few placeholder components for each section or page in the sitemap. We can export these components from a single file:
@@ -137,9 +137,9 @@ The Whoops404 component will be rendered by the router when users enter routes t
 Now let’s add the Whoops404 component to the application using a Route:
 
 ```jsx
-import { 
-    HashRouter, 
-    Route, 
+import {
+    HashRouter,
+    Route,
     Switch
 } from 'react-router-dom'
 
@@ -257,7 +257,7 @@ export const About = ({ match }) =>
         </section>
     </PageTemplate>
 ```
- 
+
 If you run the application, you will see that each section now displays the same MainMenu. The content on the right side of the screen changes as you navigate through the interior pages of the website.
 
 ![mainMenu](https://www.safaribooksonline.com/library/view/learning-react-1st/9781491954614/assets/lrct_1104.png)
@@ -270,16 +270,16 @@ Next, we will nest four components under the "About section" using the Route com
 
 We need to add pages for Company, History, Services, and Location. When the user selects the About section, they should be defaulted to the Company page under that section. The outline looks like this:
 
-* Home Page: http://localhost:3000/
-* About the Company: http://localhost:3000/#/about
-    * Company (default): http://localhost:3000/#/about
-    * History: http://localhost:3000/#/about/history
-    * Services: http://localhost:3000/#/about/services
-    * Location: http://localhost:3000/#/about/location
-* Events: http://localhost:3000/#/events
-* Products: http://localhost:3000/#/products
-* Contact Us: http://localhost:3000/#/contact
-* 404 Error Page: http://localhost:3000/#/foo-bar
+* Home Page: <http://localhost:3000/>
+* About the Company: <http://localhost:3000/#/about>
+    * Company (default): <http://localhost:3000/#/about>
+    * History: <http://localhost:3000/#/about/history>
+    * Services: <http://localhost:3000/#/about/services>
+    * Location: <http://localhost:3000/#/about/location>
+* Events: <http://localhost:3000/#/events>
+* Products: <http://localhost:3000/#/products>
+* Contact Us: <http://localhost:3000/#/contact>
+* 404 Error Page: <http://localhost:3000/#/foo-bar>
 
 Let’s create a submenu for the About section. We will use NavLink components and set the activeStyle to the same activeStyle used in the MainMenu:
 
@@ -315,7 +315,7 @@ export const AboutMenu = ({match}) =>
 
 The AboutMenu component uses NavLink components to direct users to interior content under the About section. This component will be rendered using a Route which means that it receives routing properties. We will need to use the `match` property that is sent to this component from the Route.
 
-All of the NavLink components use the activeStyle property except for the first one. The activeStyle will set the style property for the link when the location matches to the link’s route. For instance, when the user navigates to http://localhost:3000/about/services, the Services NavLink will render a white background.
+All of the NavLink components use the activeStyle property except for the first one. The activeStyle will set the style property for the link when the location matches to the link’s route. For instance, when the user navigates to <http://localhost:3000/about/services>, the Services NavLink will render a white background.
 
 The first NavLink component does not use activeStyle. Instead, the style property is set to the selectedStyle only when the route matches exactly /about. The `match.isExact` property is true when the location is "/about" and false when the location is "/about/services". Technically the "/about" route matches for both locations, but it is only an **exact match** when the location is `/about`.
 
@@ -328,11 +328,11 @@ export const Services = () =>
     <section className="services">
         <h2>Our Services</h2>
         <p>
-            Lorem ipsum dolor sit amet, consectetur 
-            adipiscing elit. Integer nec odio. 
+            Lorem ipsum dolor sit amet, consectetur
+            adipiscing elit. Integer nec odio.
         </p>
         <p>
-            Sed dignissim lacinia nunc. Curabitur 
+            Sed dignissim lacinia nunc. Curabitur
             tortor. Pellentesque nibh. Aenean quam.
         </p>
     </section>
@@ -353,13 +353,13 @@ export const About = ({ match }) =>
     </PageTemplate>
 ```
 
-This About component will be reused across the entire section. The location will tell the app which subsection to render. For example, when the location is http://localhost:300/about/history, the History component will be rendered inside of the About component.
+This About component will be reused across the entire section. The location will tell the app which subsection to render. For example, when the location is <http://localhost:300/about/history>, the History component will be rendered inside of the About component.
 
 This time, we are not using a Switch component. Any Route that matches the location will render its associated component. _The first Route will always display the AboutMenu. Additionally, any other Routes that match will render their components as well_.
 
 #### USING REDIRECTS
 
-Sometimes you want to redirect users from one route to another. For instance, we can make sure that if users try to access content via http://localhost:3000/services, they get redirected to the correct route: http://localhost:3000/about/services.
+Sometimes you want to redirect users from one route to another. For instance, we can make sure that if users try to access content via <http://localhost:3000/services>, they get redirected to the correct route: <http://localhost:3000/about/services>.
 
 Let’s modify our application to include redirects to ensure that our users can access the correct content:
 
